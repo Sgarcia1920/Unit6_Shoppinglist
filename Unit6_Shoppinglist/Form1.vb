@@ -25,7 +25,8 @@ Public Class Form1
 			row.SubItems.Add(productPrice.ToString())
 			lstvproducts.Items.Add(row)
 		Next
-
+		lblquantityproducts.Text = lstvproducts.Items.Count
+		UpdateTotal()
 		Dim path As String = "C:\Users\Ani uwu\Desktop\SEMESTRE 2 POO\Unit 6\excel\Shoppinglist.xlsx"
 
 		Using package As New ExcelPackage(New FileInfo(path))
@@ -40,10 +41,6 @@ Public Class Form1
 			Next
 			package.Save()
 		End Using
-
-
-		UpdateLabel()
-		UpdateTotal()
 
 	End Sub
 	Sub UpdateLabel()
