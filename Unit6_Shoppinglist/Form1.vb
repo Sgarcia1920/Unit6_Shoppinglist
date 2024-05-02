@@ -27,9 +27,16 @@ Public Class Form1
 		Next
 		lblquantityproducts.Text = lstvproducts.Items.Count
 		UpdateTotal()
-		Dim path As String = "C:\Users\Ani uwu\Desktop\SEMESTRE 2 POO\Unit 6\excel\Shoppinglist.xlsx"
 
-		Using package As New ExcelPackage(New FileInfo(path))
+		Dim saveFileDialog As New SaveFileDialog()
+		saveFileDialog.Filter = "Excel files (*.xlsx)|*.xlsx"
+		saveFileDialog.FilterIndex = 2
+		saveFileDialog.RestoreDirectory = True
+		If saveFileDialog.ShowDialog() <> DialogResult.OK Then
+			Return
+		End If
+		Dim Path As String = saveFileDialog.FileName
+		Using package As New ExcelPackage(New FileInfo(Path))
 			Dim worksheet = package.Workbook.Worksheets.Add("ShoppingList")
 			worksheet.Cells(1, 1).Value = "Product name"
 			worksheet.Cells(1, 2).Value = "Price "
@@ -55,7 +62,7 @@ Public Class Form1
 	End Sub
 
 	Private Sub btnclear_Click(sender As Object, e As EventArgs) Handles btnclear.Click
-		lstvproducts.Clear()
+
 		clbproducts.ClearSelected()
 		lbltotalprice.Text = ""
 		lblquantityproducts.Text = ""
